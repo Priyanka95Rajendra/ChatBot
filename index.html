@@ -18,6 +18,7 @@
   <link href="./css/select2.min.css" rel="stylesheet" type="text/css" />
   <link href="./css/chatBot.css" rel="stylesheet" type="text/css" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script crossorigin="anonymous" src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
 
   <style>
     .bd-placeholder-img {
@@ -134,8 +135,8 @@
     width: 530px;
     height: 460px;">
 
-        <iframe src='https://webchat.botframework.com/embed/AgilysysBot123?s=7ApwWKU5D2Q.z82kgffTtGLuezjlBtEuHn4RU-GCqFt1_bfv47I4uCM' class="Botiframe" ></iframe>
-
+        <!--<iframe src='https://webchat.botframework.com/embed/AgilysysBot123?s=7ApwWKU5D2Q.z82kgffTtGLuezjlBtEuHn4RU-GCqFt1_bfv47I4uCM' class="Botiframe" ></iframe>-->
+        <div id="webchat" class = "Botiframe" role="main"></div>
 
 
       </div>
@@ -205,6 +206,30 @@
       });
     </script>
 
+
+<script>
+  (async function () {
+    // In this demo, we are using Direct Line token from MockBot.
+    // Your client code must provide either a secret or a token to talk to your bot.
+    // Tokens are more secure. To learn about the differences between secrets and tokens
+    // and to understand the risks associated with using secrets, visit https://docs.microsoft.com/en-us/azure/bot-service/rest-api/bot-framework-rest-direct-line-3-0-authentication?view=azure-bot-service-4.0
+
+    const res = await fetch('https://webchat-mockbot.azurewebsites.net/directline/token', { method: 'POST' });
+    const { token } = await res.json();
+
+    window.WebChat.renderWebChat(
+      {
+        directLine: window.WebChat.createDirectLine({ secret: '1W0TFQrBLEw.5RBC0ZsFgdFL5hcVLho9L_sprWlzP0qzihOn7DMVHKs' })
+        ,webSpeechPonyfillFactory: window.WebChat.createBrowserWebSpeechPonyfillFactory()
+      },
+      document.getElementById('webchat')
+    );
+
+    document.querySelector('#webchat > *').focus();
+  })().catch(err => console.error(err));
+  
+
+</script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
 
